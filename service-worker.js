@@ -11,7 +11,6 @@ var urlsToCache = [
   "/manifest.json",
   "/js/nav.js",
   "/js/materialize.min.js",
-  "/icon512x512.png",
   "/js/api.js",
   "/js/idb.js",
   "/js/db.js",
@@ -20,7 +19,6 @@ var urlsToCache = [
   "/assets/icons/android-icon-72x72.png",
   "/assets/icons/android-icon-96x96.png",
   "/assets/icons/android-icon-144x144.png",
-  "/assets/icons/android-icon-192x192.png",
   "/assets/icons/icon256x256.png",
   "/assets/icons/icon384x384.png",
   "/assets/icons/icon512x512.png",
@@ -51,7 +49,7 @@ self.addEventListener("install", function (event) {
 self.addEventListener("fetch", function (event) {
   event.respondWith(
     caches
-      .match(event.request, { cacheName: CACHE_NAME })
+      .match(event.request, { cacheName: CACHE_NAME, ignoreSearch: true })
       .then(function (response) {
         if (response) {
           console.log("ServiceWorker: Gunakan aset dari cache: ", response.url);
