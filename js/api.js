@@ -37,80 +37,22 @@ function getCompetition() {
       .then((response) => {
         if (response) {
           response.json().then((data) => {
-            let competitionsArticle = "";
+            // Objek/array JavaScript dari response.json() masuk lewat data.
 
-            for (let index = 0; index < 20; index++) {
-              const dataCompetition = data.competitions[index];
+            // Menyusun komponen card artikel secara dinamis
+            var competitionsArticle = "";
+            let currentMatchday = 0;
+
+            data.competitions.forEach((dataCompetition) => {
+              // for (let index = 0; index < 20; index++) {
+              // const dataCompetition = data.competitions[index];
               // console.log(dataCompetition);
-              let currentMatchday = 0;
-              if (dataCompetition.currentSeason.currentMatchday !== null) {
-                currentMatchday = dataCompetition.currentSeason.currentMatchday;
-              }
-              competitionsArticle += `
-                        <li >
-                          <div class="collapsible-header">
-                          ${dataCompetition.name}
-                          </div>
-                          <div class="collapsible-body">
-                          <table>
-                          <thead>
-                            <tr>
-                                <th class="center">Area</th>
-                                <th class="center">Code</th>
-                                <th class="center">Match Day</th>
-                                <th class="center">Start</th>
-                                <th class="center">End</th>
-      
-                            </tr>
-                          </thead>
-      
-                          <tbody>
-                            <tr>
-                              <td class="center">${dataCompetition.area.name}</td>
-                              <td class="center">${dataCompetition.area.countryCode}</td>
-                              <td class="center">${currentMatchday}</td>
-                              <td class="center">${dataCompetition.currentSeason.startDate}</td>
-                              <td class="center">${dataCompetition.currentSeason.endDate}</td>
-                            </tr>
-      
-                          </tbody>
-                        </table>
-                          </div>
-                        </li>
-                        `;
-            }
-
-            document.getElementById(
-              "competitionPage",
-            ).innerHTML = competitionsArticle;
-            const collapsible = document.querySelectorAll(".collapsible");
-            M.Collapsible.init(collapsible);
-          });
-        }
-      });
-  }
-
-  fetch(base_url + "competitions/", {
-    headers: {
-      "X-Auth-Token": token,
-    },
-  })
-    .then(status)
-    .then(json)
-    .then((data) => {
-      // Objek/array JavaScript dari response.json() masuk lewat data.
-
-      // Menyusun komponen card artikel secara dinamis
-      console.log("COMPETITION", data);
-      var competitionsArticle = "";
-      for (let index = 0; index < 20; index++) {
-        const dataCompetition = data.competitions[index];
-        // console.log(dataCompetition);
-        let currentMatchday = 0;
-        if (dataCompetition.currentSeason.currentMatchday !== null) {
-          currentMatchday = dataCompetition.currentSeason.currentMatchday;
-        }
-        competitionsArticle += `
+              if (dataCompetition.currentSeason !== null) {
+                currentMatchday = dataCompetition.currentSeason;
+                if (dataCompetition.currentSeason.currentMatchday !== null) {
+                  currentMatchday =
+                    dataCompetition.currentSeason.currentMatchday;
+                  competitionsArticle += `
                   <li >
                     <div class="collapsible-header">
                     ${dataCompetition.name}
@@ -142,7 +84,77 @@ function getCompetition() {
                     </div>
                   </li>
                   `;
-      }
+                }
+              }
+            });
+
+            document.getElementById(
+              "competitionPage",
+            ).innerHTML = competitionsArticle;
+            const collapsible = document.querySelectorAll(".collapsible");
+            M.Collapsible.init(collapsible);
+          });
+        }
+      });
+  }
+
+  fetch(base_url + "competitions/", {
+    headers: {
+      "X-Auth-Token": token,
+    },
+  })
+    .then(status)
+    .then(json)
+    .then((data) => {
+      // Objek/array JavaScript dari response.json() masuk lewat data.
+
+      // Menyusun komponen card artikel secara dinamis
+      var competitionsArticle = "";
+      let currentMatchday = 0;
+
+      data.competitions.forEach((dataCompetition) => {
+        // for (let index = 0; index < 20; index++) {
+        // const dataCompetition = data.competitions[index];
+        // console.log(dataCompetition);
+        if (dataCompetition.currentSeason !== null) {
+          currentMatchday = dataCompetition.currentSeason;
+          if (dataCompetition.currentSeason.currentMatchday !== null) {
+            currentMatchday = dataCompetition.currentSeason.currentMatchday;
+            competitionsArticle += `
+                  <li >
+                    <div class="collapsible-header">
+                    ${dataCompetition.name}
+                    </div>
+                    <div class="collapsible-body">
+                    <table>
+                    <thead>
+                      <tr>
+                          <th class="center">Area</th>
+                          <th class="center">Code</th>
+                          <th class="center">Match Day</th>
+                          <th class="center">Start</th>
+                          <th class="center">End</th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td class="center">${dataCompetition.area.name}</td>
+                        <td class="center">${dataCompetition.area.countryCode}</td>
+                        <td class="center">${currentMatchday}</td>
+                        <td class="center">${dataCompetition.currentSeason.startDate}</td>
+                        <td class="center">${dataCompetition.currentSeason.endDate}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                    </div>
+                  </li>
+                  `;
+          }
+        }
+      });
 
       document.getElementById(
         "competitionPage",
