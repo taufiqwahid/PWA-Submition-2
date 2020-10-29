@@ -20,6 +20,20 @@ function saveForLater(article) {
     });
 }
 
+function deleteSaved(id) {
+  dbPromised
+    .then(function (db) {
+      var tx = db.transaction("articles", "readwrite");
+      var store = tx.objectStore("articles");
+      store.delete(id);
+      return tx.complete;
+    })
+    .then(function () {
+      console.log("Item deleted");
+      location.reload();
+    });
+}
+
 function getAll() {
   return new Promise(function (resolve, reject) {
     dbPromised
@@ -37,6 +51,7 @@ function getAll() {
 function getSavedArticles() {
   getAll().then((articles) => {
     console.log(articles);
+
     // Menyusun komponen card artikel secara dinamis
     var articlesHTML = "";
     articles.forEach((team) => {
@@ -45,7 +60,7 @@ function getSavedArticles() {
       <div class="card-image">
         <img src="${team.crestUrl}">
         <span class="card-title black-text">${team.name}</span>
-        
+        <a href="#saved" id="deleteSaved" onclick="deleteSaved(${team.id})" class=" btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
       </div>
       <div class="card-content teal lighten-5">
         <p>address : <b>${team.address}</p></b>

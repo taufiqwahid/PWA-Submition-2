@@ -68,6 +68,7 @@
       }
 
       document.addEventListener("DOMContentLoaded", function() {
+        console.log("DELETEE",document.getElementById("deleteSaved"))
       var urlParams = new URLSearchParams(window.location.search);
       var isFromSaved = urlParams.get("saved");
       var btnSave = document.getElementById("save");

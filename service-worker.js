@@ -14,6 +14,8 @@ var urlsToCache = [
   "/js/api.js",
   "/js/idb.js",
   "/js/db.js",
+  "/js/cek-sw.js",
+  "/js/notif.js",
   "/assets/icons/android-icon-36x36.png",
   "/assets/icons/android-icon-48x48.png",
   "/assets/icons/android-icon-72x72.png",

@@ -374,6 +374,7 @@ function getSavedArticles() {
         
       </div>
       <div class="card-content teal lighten-5">
+      <a href="#" id="deleteSaved" onclick="deleteSaved(${team.id})" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
       <span class="card-title black-text center"><b>${team.name}</b></span>
         <p>address : <b>${team.address}</p></b>
         <p>phone : <b>${team.phone}</p></b>
@@ -433,6 +434,7 @@ function getSavedArticleById() {
         
       </div>
       <div class="card-content teal lighten-5">
+      <a href="#" id="deleteSaved" onclick="deleteSaved(${team.id})" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
       <span class="card-title black-text center"><b>${team.name}</b></span>
         <p>address : <b>${team.address}</p></b>
         <p>phone : <b>${team.phone}</p></b>
@@ -478,6 +480,7 @@ function getSavedArticleById() {
       </div>
       <div class="card-content teal lighten-5">
       <span class="card-title black-text center"><b>${team.name}</b></span>
+      <a href="#" id="deleteSaved" onclick="deleteSaved(${team.id})" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
         <p>address : <b>${team.address}</p></b>
         <p>phone : <b>${team.phone}</p></b>
         <p>website : <b>${team.website}</p></b>
