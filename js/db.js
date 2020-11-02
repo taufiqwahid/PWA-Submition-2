@@ -7,12 +7,12 @@ var dbPromised = idb.open("football", 1, function (upgradeDb) {
   });
 });
 
-function saveForLater(article) {
+function saveForLater(detailTeam) {
   dbPromised
     .then((db) => {
       var tx = db.transaction("articles", "readwrite");
       var store = tx.objectStore("articles");
-      store.add(article);
+      store.add(detailTeam);
       return tx.complete;
     })
     .then(() => {
@@ -43,27 +43,27 @@ function getAll() {
         var store = tx.objectStore("articles");
         return store.getAll();
       })
-      .then((articles) => {
-        resolve(articles);
+      .then((teams) => {
+        resolve(teams);
       });
   });
 }
 
-function getSavedArticles() {
-  getAll().then((articles) => {
-    console.log(articles);
+function getSavedTeams() {
+  getAll().then((team) => {
+    console.log(team);
 
     // Menyusun komponen card artikel secara dinamis
     var articlesHTML = "";
-    articles.forEach((team) => {
+    team.forEach((team) => {
       articlesHTML += `
       <div class="card">
       <div class="card-image">
         <img src="${team.crestUrl}">
-        <span class="card-title black-text">${team.name}</span>
         <a href="#saved" id="deleteSaved" onclick="deleteSaved(${team.id})" class=" btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
-      </div>
-      <div class="card-content teal lighten-5">
+        </div>
+        <div class="card-content teal lighten-5">
+        <span class="card-title black-text">${team.name}</span>
         <p>address : <b>${team.address}</p></b>
         <p>phone : <b>${team.phone}</p></b>
         <p>website : <b>${team.website}</p></b>

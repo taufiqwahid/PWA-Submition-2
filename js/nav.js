@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (page === "competition") {
           getCompetition();
         } else if (page === "saved") {
-          getSavedArticles();
+          getSavedTeams();
         } else if (page === "team") {
           getTeam();
         }

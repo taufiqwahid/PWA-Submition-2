@@ -190,10 +190,10 @@ function getTeam() {
               <div class="card">
                 <div class="card-image">
                   <img src="${team.crestUrl}">
-                  <span class="card-title black-text"><b>${team.name}</b></span>
+                  <a href="./article.html?id=${team.id}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">directions</i></a>
                   </div>
                   <div class="card-content teal lighten-5">
-                  <a href="./article.html?id=${team.id}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">directions</i></a>
+                  <span class="card-title black-text"><b>${team.name}</b></span>
                   <p>address : <b>${team.address}</p></b>
                   <p>phone : <b>${team.phone}</p></b>
                   <p>website : <b>${team.website}</p></b>
@@ -262,7 +262,7 @@ function getTeam() {
     });
 }
 
-function getArticleById() {
+function getTeamById() {
   return new Promise(function (resolve, reject) {
     // Ambil nilai query parameter (?id=)
     var urlParams = new URLSearchParams(window.location.search);
@@ -360,7 +360,7 @@ function getAll() {
   });
 }
 
-function getSavedArticles() {
+function getSavedTeams() {
   getAll().then((articles) => {
     console.log(articles);
     // Menyusun komponen card artikel secara dinamis
@@ -402,7 +402,7 @@ function loadPage(page) {
       if (page === "home") {
         getCompetition();
       } else if (page === "saved") {
-        getSavedArticles();
+        getSavedTeams();
       } else if (page === "team") {
         getTeam();
       }
@@ -420,37 +420,6 @@ function loadPage(page) {
   xhttp.send();
 }
 
-function getSavedArticleById() {
-  var urlParams = new URLSearchParams(window.location.search);
-  var idParam = urlParams.get("id");
-
-  getById(idParam).then((team) => {
-    articleHTML = "";
-    var articleHTML = `
-    <div class="card">
-      <div class="card-image">
-        <img src="${team.crestUrl}">
-        
-        
-      </div>
-      <div class="card-content teal lighten-5">
-      <a href="#" id="deleteSaved" onclick="deleteSaved(${team.id})" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
-      <span class="card-title black-text center"><b>${team.name}</b></span>
-        <p>address : <b>${team.address}</p></b>
-        <p>phone : <b>${team.phone}</p></b>
-        <p>website : <b>${team.website}</p></b>
-        <p>email : <b>${team.email}</p></b>
-        <p>clubColors : <b>${team.clubColors}</p></b>
-        <p>venue : <b>${team.venue}</p></b>
-        <p class="right">Last Update : ${team.lastUpdated}</p>
-      </div>
-    </div>
-  `;
-    // Sisipkan komponen card ke dalam elemen dengan id #content
-    document.getElementById("body-content").innerHTML = articleHTML;
-  });
-}
-
 function getById(id) {
   return new Promise(function (resolve, reject) {
     dbPromised
@@ -459,13 +428,13 @@ function getById(id) {
         var store = tx.objectStore("articles");
         return store.get(id);
       })
-      .then((article) => {
-        resolve(article);
+      .then((team) => {
+        resolve(team);
       });
   });
 }
 
-function getSavedArticleById() {
+function getSavedTeamById() {
   var urlParams = new URLSearchParams(window.location.search);
   var idParam = urlParams.get("id");
 
