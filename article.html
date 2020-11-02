@@ -35,11 +35,11 @@
     </div>
 
     <div class="fixed-action-btn">
-      <a class="btn btn-floating btn-large teal" id="save" >
+      <a class="btn btn-floating btn-large teal" id="save">
       <i class="large material-icons">save</i>
       </a>
   </div>
-
+    
     <script
       type="text/javascript"
       src="https://unpkg.com/snarkdown@1.0.2/dist/snarkdown.umd.js"
@@ -68,7 +68,6 @@
       }
 
       document.addEventListener("DOMContentLoaded", function() {
-        console.log("DELETEE",document.getElementById("deleteSaved"))
       var urlParams = new URLSearchParams(window.location.search);
       var isFromSaved = urlParams.get("saved");
       var btnSave = document.getElementById("save");
@@ -84,7 +83,8 @@
       btnSave.onclick = function() {
         console.log("Tombol FAB di klik.");
         item.then((article) =>{
-          console.log(article)
+          M.toast({html: 'Team Detail ini telah disimpan'})
+          console.log("klikk",article)
           saveForLater(article);
         });
         };        

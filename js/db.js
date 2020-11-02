@@ -29,6 +29,7 @@ function deleteSaved(id) {
       return tx.complete;
     })
     .then(function () {
+      M.toast({ html: "Item Detail ini akan dihapus" });
       console.log("Item deleted");
       location.reload();
     });
